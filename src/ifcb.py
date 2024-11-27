@@ -25,6 +25,7 @@ def extract_ifcb_images(target, no_metadata = False):
 
     adc_format_map = list(csv.reader([metadata["ADCFileFormat"]], skipinitialspace=True))[0]
     image_map = []
+    outputs = []
     with open(target + ".adc") as csvfile:
         reader = csv.DictReader(csvfile, fieldnames=adc_format_map, skipinitialspace=True)
         with open(target + ".roi", "rb") as imagefile:
@@ -53,6 +54,8 @@ def extract_ifcb_images(target, no_metadata = False):
                         with open(target + "_TN" + trigger_number + ".json", "w") as f:
                             json.dump(im_metadata, f, ensure_ascii=False)
                     image.save(target + "_TN" + trigger_number + ".tiff", "TIFF")
+                    outputs.append(target + "_TN" + trigger_number)
+    return outputs
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
