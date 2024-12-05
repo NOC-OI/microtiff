@@ -3,6 +3,7 @@ import argparse
 import os
 import re
 import csv
+import struct
 import json
 from PIL import Image
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
@@ -35,11 +36,8 @@ def extract_ifcb_images(target, no_metadata = False):
                 height = int(row["ROIheight"])
                 width = int(row["ROIwidth"])
                 imdata = imagefile.read(height * width)
-                imdata_reform = np.zeros([width, height], dtype=np.uint8)
                 if (height * width > 0):
-                    for y in range(0,height):
-                        for x in range(0,width):
-                            imdata_reform[x][y] = imdata[(y * width) + x]
+                    imdata_reform = np.reshape(np.frombuffer(imdata, dtype=np.uint8), (height, width))
                     image = Image.fromarray(imdata_reform, "L")
                     image_package = {"metadata": row, "image": image}
                     image_map.append(image_package)
