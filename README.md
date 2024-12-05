@@ -7,7 +7,7 @@ Both supported modules and modules working with errata are listed below.
 | Sensor | Status | Errata/Notes |
 | --- | --- | --- |
 | Imaging FlowCytobot/IFCB (.adc, .hdr, .roi) | :white_check_mark: | |
-| LISST-Holo (.pgm) | :white_check_mark: | Only extracts raw interference field, does not reconstruct images |
+| LISST-Holo (.pgm) | :white_check_mark: | Only extracts raw interference field, does not reconstruct images. Metadata export broken. |
 | LISST-Holo2 (.pgm) | :white_check_mark: | See above |
 | FlowCam | :x: | In active development |
 
