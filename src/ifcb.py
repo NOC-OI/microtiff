@@ -1,6 +1,6 @@
 #!/bin/python3
 
-# Copyright 2024, A Baldwin, S Giering, W Major and M Masoudi
+# Copyright 2024, A Baldwin
 #
 # This file is part of microtiff.
 #
