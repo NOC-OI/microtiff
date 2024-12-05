@@ -1,4 +1,28 @@
 #!/bin/python3
+
+# Copyright 2024, A Baldwin, S Giering, W Major and M Masoudi
+#
+# This file is part of microtiff.
+#
+# microtiff is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# microtiff is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with microtiff.  If not, see <http://www.gnu.org/licenses/>.
+
+'''
+ifcb.py
+
+A converter for image data from the IFCB sensor
+'''
+
 import argparse
 import os
 import re
@@ -57,7 +81,6 @@ def extract_ifcb_images(target, no_metadata = False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    #parser.add_argument("-x", "--exclude-metadata", type=str, required=False, help="Set path to raw IFCB directory (adc, hdr, and roi files).")
     parser.add_argument("-x", "--exclude-metadata", action="store_true", required=False, help="don't add metadata to resulting image files.")
     parser.add_argument("file", nargs='+', help="any number of .adc, .hdr or .roi files")
 
