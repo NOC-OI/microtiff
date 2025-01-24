@@ -12,12 +12,20 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    "numpy >= 2.0.0",
+    "pillow >= 8.3.1",
+]
 
 [project.urls]
 Homepage = "https://github.com/NOC-OI/microtiff"
 Issues = "https://github.com/NOC-OI/microtiff/issues"
 
 [tool.setuptools.dynamic]
+
+[tool.setuptools]
+packages = ["microtiff"]
+package-dir = {"" = "src"}
 
 [tool.setuptools_scm]
 

@@ -21,10 +21,6 @@
 lisst_holo.py
 
 A converter for image data from the LISST-Holo and LISST-Holo2 holographic sensors
-
-Notes:
-
-Only imports holopy when attempting to construct normal images from interference patterns.
 '''
 
 import argparse
@@ -73,7 +69,7 @@ def read_string_till_space(fp):
                 reading = True
                 str_out = str_out + char
 
-def extract_lisst_holo_image(target, no_metadata = False, construct = False):
+def extract_image(target, no_metadata = False):
     image_map = []
     outputs = []
     with open(target + ".pgm", "rb") as f:
@@ -113,17 +109,6 @@ def extract_lisst_holo_image(target, no_metadata = False, construct = False):
                 with open(target + ".json", "w") as f:
                     json.dump(im_metadata, f, ensure_ascii=False)
             image.save(target + ".tiff", "TIFF")
-            if construct:
-                import holopy
-                zstack = np.linspace(0, 100000, 64)
-                raw_holo = holopy.load_image(target + ".tiff", spacing=4.4, medium_index = 1, illum_wavelen = 0.658)
-                rec_vol = holopy.propagate(raw_holo, zstack, cfsp = 3)
-                print("--construct not fully implemented!")
-                #print(rec_vol.shape)
-                for img in rec_vol:
-                    plt.imshow(np.abs(img.to_numpy()), interpolation="nearest", origin="upper")
-                    plt.colorbar()
-                    plt.show()
 
             outputs.append(target)
 

@@ -42,7 +42,7 @@ def header_file_to_dict(lines):
         o_dict[key] = value.rstrip()
     return o_dict
 
-def extract_ifcb_images(target, no_metadata = False):
+def extract_images(target, no_metadata = False):
     header_lines = ""
     with open(target + ".hdr") as f:
         header_lines = f.readlines()
