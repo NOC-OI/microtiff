@@ -35,6 +35,7 @@ import json
 from PIL import Image
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
 import numpy as np
+import matplotlib.pyplot as plt
 
 def header_file_to_dict(lines):
     o_dict = {}
@@ -73,9 +74,6 @@ def read_string_till_space(fp):
                 str_out = str_out + char
 
 def extract_lisst_holo_image(target, no_metadata = False, construct = False):
-    if construct:
-        import holopy
-
     image_map = []
     outputs = []
     with open(target + ".pgm", "rb") as f:
@@ -109,14 +107,24 @@ def extract_lisst_holo_image(target, no_metadata = False, construct = False):
             else:
                 imdata_reform = np.reshape(np.frombuffer(imdata, dtype=np.uint8), (height, width))
 
-            if construct:
-                print("--construct not implemented!")
             image = Image.fromarray(imdata_reform, "L")
             im_metadata = {}
             if not no_metadata:
                 with open(target + ".json", "w") as f:
                     json.dump(im_metadata, f, ensure_ascii=False)
             image.save(target + ".tiff", "TIFF")
+            if construct:
+                import holopy
+                zstack = np.linspace(0, 100000, 64)
+                raw_holo = holopy.load_image(target + ".tiff", spacing=4.4, medium_index = 1, illum_wavelen = 0.658)
+                rec_vol = holopy.propagate(raw_holo, zstack, cfsp = 3)
+                print("--construct not fully implemented!")
+                #print(rec_vol.shape)
+                for img in rec_vol:
+                    plt.imshow(np.abs(img.to_numpy()), interpolation="nearest", origin="upper")
+                    plt.colorbar()
+                    plt.show()
+
             outputs.append(target)
 
     return outputs

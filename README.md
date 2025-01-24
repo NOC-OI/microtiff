@@ -31,6 +31,6 @@ For essential dependencies you can use the following command:
 HoloPy is not avaliaiable via PIP. If you are using anaconda, you may install it there. Alternatively, install from source by following instructions at [https://holopy.readthedocs.io/en/master/tutorial/dev_tutorial.html](https://holopy.readthedocs.io/en/master/tutorial/dev_tutorial.html#dev-install). Alternatively, use the install script at [scripts/install-holopy.sh](scripts/install-holopy.sh)
 
 ## Acknowledgements
-This library is comprised of work from various researchers.
+This library is comprised of work from various researchers, some of whom are not direct contributors to this repository.
 
-LISST-Holo decoder based on work by [Sari Giering](https://github.com/sarigiering), [Will Major](https://github.com/obg-wrm) and [Mojtaba Masoudi](https://github.com/Mojtabamsd)
+The LISST-Holo decoder is based on work by [Sari Giering](https://github.com/sarigiering), [Will Major](https://github.com/obg-wrm) and [Mojtaba Masoudi](https://github.com/Mojtabamsd)
