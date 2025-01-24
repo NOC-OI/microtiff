@@ -31,7 +31,6 @@ import json
 from PIL import Image
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
 import numpy as np
-import matplotlib.pyplot as plt
 
 def header_file_to_dict(lines):
     o_dict = {}
