@@ -100,5 +100,5 @@ if __name__ == "__main__":
     targets = list(set(targets))
 
     for target in targets:
-        extract_ifcb_images(target, no_metadata = args.exclude_metadata)
+        extract_images(target, no_metadata = args.exclude_metadata)
 

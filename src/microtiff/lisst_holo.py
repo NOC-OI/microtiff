@@ -33,15 +33,7 @@ from PIL.TiffImagePlugin import ImageFileDirectory_v2
 import numpy as np
 import matplotlib.pyplot as plt
 
-def header_file_to_dict(lines):
-    o_dict = {}
-    for line in lines:
-        m = re.search("^([^:]+):\\s?", line)
-        key = m.group(1)
-        value = line[len(m.group(0)):]
-        o_dict[key] = value.rstrip()
-    return o_dict
-
+# Specific to the PGM spec
 def is_whitespace(char):
     if char == ' ':
         return True
@@ -94,6 +86,7 @@ def extract_image(target, no_metadata = False):
         imd_length = height * width
         if (two_byte):
             imd_length = imd_length * 2
+        # Ignore zero-size images
         if (height * width > 0):
             f.seek(imd_start_byte)
             imdata = f.read(imd_length)
@@ -117,7 +110,6 @@ def extract_image(target, no_metadata = False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-x", "--exclude-metadata", action="store_true", required=False, help="don't add metadata to resulting image files.")
-    parser.add_argument("-c", "--construct", action="store_true", required=False, help="reconstruct image from holographic pattern.")
     parser.add_argument("file", nargs='+', help="any number of .pgm files")
 
     args = parser.parse_args()
@@ -136,5 +128,5 @@ if __name__ == "__main__":
     targets = list(set(targets))
 
     for target in targets:
-        extract_lisst_holo_image(target, no_metadata = args.exclude_metadata, construct = args.construct)
+        extract_image(target, no_metadata = args.exclude_metadata)
 
