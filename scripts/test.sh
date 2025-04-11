@@ -2,22 +2,34 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR/..
 echo "About to run tests on IFCB & LISST-Holo2 data"
+echo "NOTE: Test data is not included in the microtiff git repository due to licensing concerns. Information on where to obtain this data is listed in the TESTING.md file."
 rm testdata/ifcb-1/*.json 2> /dev/null
 rm testdata/ifcb-1/*.tiff 2> /dev/null
-python3 src/microtiff/ifcb.py testdata/ifcb-1/D20230313T140834_IFCB138.roi
+python3 src/microtiff/ifcb.py testdata/ifcb-1/*.roi
 SHAOUT=($(sha256sum -b testdata/ifcb-1/*.tiff testdata/ifcb-1/*.json | sha256sum))
-if [ "${SHAOUT[0]}" = "d3e2ef1c818399b2e7c8779cce65b79181d409fdd694941aaa0e2d1b8834bc68" ]; then
+if [ "${SHAOUT[0]}" = "3bf9cf416d7008714d111d3995cf039bdec4d1b3fb01e1bb69ba72f961db7b7d" ]; then
     echo "[PASS] IFCB Test 1"
     rm testdata/ifcb-1/*.json
     rm testdata/ifcb-1/*.tiff
 else
     echo "[FAIL] IFCB Test 1 - Hash (${SHAOUT[0]}) did not match expected output"
 fi
+rm testdata/ifcb-2/*.json 2> /dev/null
+rm testdata/ifcb-2/*.tiff 2> /dev/null
+python3 src/microtiff/ifcb.py testdata/ifcb-2/*.roi
+SHAOUT=($(sha256sum -b testdata/ifcb-2/*.tiff testdata/ifcb-2/*.json | sha256sum))
+if [ "${SHAOUT[0]}" = "362edc58a2e1e1ea34500fb74ff290297068bb5bff8d0594c1546eea6fa10a81" ]; then
+    echo "[PASS] IFCB Test 2"
+    rm testdata/ifcb-2/*.json
+    rm testdata/ifcb-2/*.tiff
+else
+    echo "[FAIL] IFCB Test 2 - Hash (${SHAOUT[0]}) did not match expected output"
+fi
 rm testdata/lisst-holo-1/*.json 2> /dev/null
 rm testdata/lisst-holo-1/*.tiff 2> /dev/null
-python3 src/microtiff/lisst_holo.py testdata/lisst-holo-1/003-2516.pgm
+python3 src/microtiff/lisst_holo.py testdata/lisst-holo-1/*.pgm
 SHAOUT=($(sha256sum -b testdata/lisst-holo-1/*.tiff testdata/lisst-holo-1/*.json | sha256sum))
-if [ "${SHAOUT[0]}" = "fab34ce1532edf18eb7bb2fc1d357d5f01740da7504b8ff801739e758d2c3d97" ]; then
+if [ "${SHAOUT[0]}" = "79b9e43c83b155c63e804002953fef5d1c871f757d6a29206f144b93a506b1b3" ]; then
     echo "[PASS] LISST-Holo Test 1"
     rm testdata/lisst-holo-1/*.json
     rm testdata/lisst-holo-1/*.tiff

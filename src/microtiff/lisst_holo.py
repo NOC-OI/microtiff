@@ -101,9 +101,10 @@ def extract_image(target, no_metadata = False):
             if not no_metadata:
                 with open(target + ".json", "w") as f:
                     json.dump(im_metadata, f, ensure_ascii=False)
+                outputs.append(target + ".json")
             image.save(target + ".tiff", "TIFF")
 
-            outputs.append(target)
+            outputs.append(target + ".tiff")
 
     return outputs
 
