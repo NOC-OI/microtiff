@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repo has been deprecated, functionality has been split between [libifcb](https://github.com/NOC-OI/libifcb) and [libflowcam](https://github.com/NOC-OI/libflowcam).
+
 # microtiff
 A Python module and CLI tool for converting proprietary microscopy formats to TIFF with JSON metadata sidecar files.
 
